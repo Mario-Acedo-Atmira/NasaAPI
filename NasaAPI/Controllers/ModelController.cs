@@ -25,6 +25,7 @@ namespace NasaAPI.Controllers
 
             if (days > 7 || days <= 0)
             {
+                Response.Headers.Add("Error", "El parametro days tiene que estar entre 1 y 7");
                 return BadRequest();
             }
             else
@@ -32,6 +33,7 @@ namespace NasaAPI.Controllers
                 var entity = _model.Obtenertop3(days);
                 if (entity.Result.Count == 0)
                 {
+                    Response.Headers.Add("Error", "La lista está vacia");
                     return Ok(entity);
                 }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NasaAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("asteroids")]
     [ApiController]
     public class ModelController : ControllerBase
     {

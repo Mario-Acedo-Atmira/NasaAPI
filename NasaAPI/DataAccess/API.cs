@@ -11,8 +11,12 @@ using System.Threading.Tasks;
 
 namespace NasaAPI.DataAccess
 {
-    class API : IAPI
+    public class API : IAPI
     {
+        public API()
+        {
+
+        }
         public async Task<List<Meteorito>> Obtenertop3(int dias)
         {
             string fechaactual = DateTime.Now.ToString("yyyy-MM-dd");

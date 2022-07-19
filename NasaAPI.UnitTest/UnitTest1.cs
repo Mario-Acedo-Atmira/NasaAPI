@@ -56,7 +56,7 @@ namespace NasaAPI.UnitTest
             var ok = _apimock.Object.Obtenertop3(3);
 
 
-            Assert.Equal(result.ToString(), ok.ToString());
+            Assert.Equal(customer.ToString(), ok.ToString());
         }
 
         [Fact]

@@ -33,6 +33,32 @@ namespace NasaAPI.UnitTest
             Assert.Equal(customer.ToString(), ok.ToString());
         }
 
+        public async Task CasoValidoAPI()
+        {
+
+            List<Meteorito> meteoros = new List<Meteorito>();
+            for (int i = 0; i < 3; i++)
+            {
+                Meteorito meteorito = new Meteorito()
+                {
+                    _nombre = "algo",
+                    _diametro = 1.2F,
+                    _fecha = "0120329239",
+                    _planeta = "Earth",
+                    _velocidad = "23423"
+                };
+                meteoros.Add(meteorito);
+            }
+
+            var customer = Task.FromResult(meteoros);
+            var result = _apimock.Setup(x => x.Obtenertop3(3)).Returns(customer);
+
+            var ok = _apimock.Object.Obtenertop3(3);
+
+
+            Assert.Equal(result.ToString(), ok.ToString());
+        }
+
         [Fact]
         public async Task CasoNoValido()
         {

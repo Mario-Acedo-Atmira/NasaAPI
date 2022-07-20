@@ -10,11 +10,11 @@ namespace NasaAPI.Controllers
 {
     [Route("asteroids")]
     [ApiController]
-    public class ModelController : ControllerBase
+    public class AsteroidsController : ControllerBase
     {
-        private readonly IAPI _model;
+        private readonly IMeteoritoService _model;
 
-        public ModelController(IAPI model)
+        public AsteroidsController(IMeteoritoService model)
         {
             _model = model;
         }
@@ -39,6 +39,13 @@ namespace NasaAPI.Controllers
 
                 return Ok(entity);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveAsteroids(int days)
+        {
+
+                return Ok();
         }
 
     }

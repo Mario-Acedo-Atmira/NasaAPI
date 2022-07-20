@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace NasaAPI.DataAccess
 {
-    public class API : IAPI
+    public class MeteoritoService : IMeteoritoService
     {
-        public API()
+        public MeteoritoService()
         {
 
         }
@@ -44,6 +44,11 @@ namespace NasaAPI.DataAccess
                 
             }
             return ordenar(clasificar(todos));
+        }
+
+        public async Task<List<Meteorito>> Save3Meteoritos(int dias)
+        {
+
         }
 
         protected List<Meteorito> clasificar(List<List<Fecha>> todos)

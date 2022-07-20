@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NasaAPI.DataAccess
 {
-    public interface IAPI
+    public interface IMeteoritoService
     {
         Task<List<Meteorito>> Obtenertop3(int dias);
     }

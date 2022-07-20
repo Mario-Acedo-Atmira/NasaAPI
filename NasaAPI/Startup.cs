@@ -38,7 +38,7 @@ namespace NasaAPI
                 });
             });
 
-            services.AddTransient<IAPI, API>();
+            services.AddTransient<IMeteoritoService, MeteoritoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

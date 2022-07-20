@@ -13,12 +13,12 @@ namespace NasaAPI.UnitTest
 {
     public class UnitTest1
     {
-        private readonly ModelController _model;
-        private readonly Mock<API> _apimock=new Mock<API>();
+        private readonly AsteroidsController _model;
+        private readonly Mock<MeteoritoService> _apimock=new Mock<MeteoritoService>();
         
         public UnitTest1()
         {
-            _model = new ModelController(_apimock.Object);
+            _model = new AsteroidsController(_apimock.Object);
         }
         
         

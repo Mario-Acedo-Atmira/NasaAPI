@@ -1,4 +1,5 @@
 ﻿
+using NasaAPI.Context;
 using NasaAPI.Models;
 using Newtonsoft.Json;
 using System;
@@ -13,11 +14,12 @@ namespace NasaAPI.DataAccess
 {
     public class MeteoritoService : IMeteoritoService
     {
-        public MeteoritoService()
+        private readonly IContextoDB _contextoDB;
+        public MeteoritoService(IContextoDB contextoDB)
         {
-
+            _contextoDB = contextoDB;
         }
-        public async Task<List<Meteorito>> Obtenertop3(int dias)
+        public List<Meteorito> Obtenertop3(int dias)
         {
             string fechaactual = DateTime.Now.ToString("yyyy-MM-dd");
             var diaactual = fechaactual.Split("-");
@@ -46,9 +48,24 @@ namespace NasaAPI.DataAccess
             return ordenar(clasificar(todos));
         }
 
-        public async Task<List<Meteorito>> Save3Meteoritos(int dias)
+        public List<Meteorito> Save3Meteoritos(int dias)
         {
+            List<Meteorito> lista = Obtenertop3(dias);
+            List<Meteorito> listaDb = _contextoDB.meteoritos.ToList();
+            List<Meteorito> response = new List<Meteorito>();
 
+            foreach (var meteorito in lista)
+            {
+                if (!listaDb.Contains(meteorito))
+                {
+                    _contextoDB.meteoritos.Add(meteorito);
+                    response.Add(meteorito);
+                }
+            }
+            _contextoDB.SaveChanges();
+
+            return response;
+           
         }
 
         protected List<Meteorito> clasificar(List<List<Fecha>> todos)
@@ -61,12 +78,21 @@ namespace NasaAPI.DataAccess
                     var nuevo = todos[i];
                     if (nuevo[j].is_potentially_hazardous_asteroid)
                     {
+                        string fecha="";
                         float media = (nuevo[j].estimated_diameter.kilometers.estimated_diameter_min + nuevo[j].estimated_diameter.kilometers.estimated_diameter_max) / 2;
+                        if (i == 0)
+                        {
+                            fecha = DateTime.Now.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            fecha = calcularfecha(i);
+                        }
                         Meteorito meteoro = new Meteorito(
                             nuevo[j].name,
                             media,
                             nuevo[j].close_approach_data[0].relative_velocity.kilometers_per_hour,
-                            nuevo[j].close_approach_data[0].close_approach_date,
+                            fecha,
                             nuevo[j].close_approach_data[0].orbiting_body);
                         meteoritos.Add(meteoro);
                     }

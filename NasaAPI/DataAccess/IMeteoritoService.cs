@@ -7,6 +7,10 @@ namespace NasaAPI.DataAccess
 {
     public interface IMeteoritoService
     {
-        Task<List<Meteorito>> Obtenertop3(int dias);
+
+        
+        List<Meteorito> Obtenertop3(int dias);
+
+        List<Meteorito> Save3Meteoritos(int dias);
     }
 }

@@ -25,7 +25,8 @@ namespace NasaAPI.DataAccess
             var diaactual = fechaactual.Split("-");
             string fechafinal = calcularfecha(dias);
             List<List<Fecha>> todos = new List<List<Fecha>>();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.neowsapp.com/rest/v1/feed?start_date="+fechaactual+"&end_date="+fechafinal+"&detailed=false&api_key=nUIaTOBMbI7BNyvjiRruwLrAWeARkE9qaOcbUBg3");
+            APICall apicall=new APICall();
+            HttpWebRequest request=apicall.getDatos(fechaactual, fechafinal);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = (Stream)response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
